@@ -1,30 +1,17 @@
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain_google_genai import ChatGoogleGenerativeAI
 load_dotenv()
 
-model_openai = ChatOpenAI(model="gpt-4.1-nano",seed=6)
-model_google = ChatGoogleGenerativeAI(model="gemini-2.5-flash",seed=6)
+llm = ChatOpenAI(model="gpt-4.1-nano")
 
+resp1 = llm.invoke("We are building an AI system for processing medical insurance claims.")
 
-m1 = "Who is the Prime Minister of India?"
-m2 = "What is his age?"
+resp2 = llm.invoke("What are the main risks in this system?")
 
-response_openai = model_openai.invoke(m1)
-response_google = model_google.invoke(m1)
+print(resp1.content)
+print(resp2.content)
 
-print(f"OpenAI: {response_openai.content}")
-print(f"Google: {response_google.content}")
-
-response_openai = model_openai.invoke(m2)
-response_google = model_google.invoke(m2)
-
-print(f"OpenAI: {response_openai.content}")
-print(f"Google: {response_google.content}")
-
-print("--------------------------------")
-print("OpenAI: ", response_openai)
-print("Google: ", response_google)
-
-print("--------------------------------")
-print(f"Type of object: {type(response_openai)}")
+#Why the second question may fail or behave inconsistently without conversation history?
+#Answer: The second question may fail or behave inconsistently without conversation history because the model does not have a conversation history.
+#The model is not able to understand the context of the first question and the second question is not related to the first question.
+# LLMs are stateless → each call is independent unless context is explicitly passed.
